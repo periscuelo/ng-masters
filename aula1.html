@@ -12,7 +12,6 @@
 			var username = jQuery('#user').val();
 			var reponame = jQuery('#reponame').val();
 			var lines = '';
-			var issues;
 			
 			if (username=='' || reponame=='') {
 				alert('Os campos Usuário e Repositório tem de estar preenchidos para prosseguir!');
@@ -26,14 +25,15 @@
 
 					function GithubRepo(username, reponame) { //closure
 						var url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
+						var issuesC = {};
 				        return {
 				        	busca_issues: function() {
 				        		return jQuery.getJSON(url, function(data) {
-									issues = data;
+									issuesC = data;
 								});
 				        	},
 				        	popula_tabela: function(id) {
-				        		jQuery.each(issues, function(index, val) {
+				        		jQuery.each(issuesC, function(index, val) {
 									lines += '<tr class="appended"><td>'+val.number+'</td><td>'+val.title+'</td></tr>';
 								});
 								jQuery('.appended').remove();
