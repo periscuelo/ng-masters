@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Movimento ajude o Lâmpada!</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+	<script type="text/javascript">
+		//Note que aqui eu crio uma nomenclatura jLite para ser equivalente ao jQuery() ou $() que estamos acostumados
+		var jLite = function(selector) {
+			return angular.element(document.querySelector(selector));
+		};
+		function modifica() {
+			jLite('#teste').html('Mudei =)');
+		}
+	</script>
+</head>
+<body>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>angular.element</h1>
+			<p>Olá galera da turma 5 mg-masters. Estamos aqui novamente no movimento "ajude o Lâmpada!"</p>
+			<p>O angular.element é o método existente para usarmos o jQuery Lite do angular! Abaixo tem uma demonstração bem simples do seu uso!</p>
+			<p id="teste">Oiiiii eu vou ser modificado pelo jqLite do Angular =)</p>
+			<p>
+				<a class="btn btn-primary btn-lg" onclick="modifica()">Modificar</a>
+			</p>
+			<h1>Conclusão</h1>
+			<p>Legal né!? Para saber o que mais podemos fazer com o jQuery Lite do angular veja a <a href="https://docs.angularjs.org/api/ng/function/angular.element" target="_blank"> documentação</a></p>
+			<p>A única "vantagem" por assim dizer na minha opinião, é o fato de que se você não precisar de outras bibliotecas que usem jQuery em seu sistema, o AngularJs se mostra autossuficiente em termos de funções de jQuery!</p>
+			<p>P.S.<br>Se você ficou curioso para ver o código desta implementação veja no <a href="http://plnkr.co/edit/CItCho4JkXAMnyLRZX7X?p=preview" target="_blank">plunker</a> =)</p>
+		</div>
+	</div>
+</body>
+</html>

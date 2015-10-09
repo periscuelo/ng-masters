@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Movimento ajude o Lâmpada!</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.4.7/angular-locale_pt-br.min.js"></script>
+	
+	<script type="text/javascript">
+		angular.module("myApp", []);
+		angular.module("myApp").controller("myCtrl", function($scope) {
+		    $scope.carregado = 0;
+		    $scope.limit = 250;
+		    $scope.valor = 1250.55;
+		    $scope.chars = "Lorem ipsum Incididunt veniam officia minim irure Ut sed cupidatat Ut reprehenderit deserunt adipisicing sit ad elit nulla cupidatat cupidatat est aute eiusmod deserunt et enim quis in ut in sed ea voluptate veniam reprehenderit magna consequat enim mollit amet voluptate irure aute nisi voluptate magna dolor ad exercitation amet Ut voluptate proident sint voluptate culpa veniam laboris ut velit id est mollit sit irure dolor nostrud elit aliquip quis culpa aliquip mollit Excepteur qui eu enim nisi incididunt dolor occaecat pariatur enim velit exercitation ut ex culpa deserunt in et proident in magna incididunt ex ut proident laborum aute dolore Excepteur laboris officia eu occaecat culpa culpa in aliqua quis Excepteur nulla anim proident et cupidatat dolor est in eu do velit elit esse incididunt labore in labore voluptate occaecat anim irure irure officia exercitation veniam laborum veniam dolor anim eiusmod irure laboris nisi adipisicing do sunt aute eu eiusmod est cupidatat reprehenderit sint irure ex dolore veniam laboris dolore magna ullamco voluptate in dolor elit officia quis reprehenderit consectetur velit est dolore aliquip dolor elit amet Excepteur cillum nostrud in laborum in et Excepteur minim enim adipisicing nostrud proident non eu voluptate est incididunt.";
+		    $scope.carregar = function() {
+		    	$scope.carregado = 1;
+		    };
+		});
+	</script>
+</head>
+<body>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>NG-BIND-TEMPLATE</h1>
+			<p>Olá galera da turma 5 mg-masters. Vamo que vamo no movimento "ajude o Lâmpada!"</p>
+			<p>Chegou a vez do ng-bind-template. Que que esse cara faz???</p>
+			<p>Basicamente a mesma coisa que o ng-bind com exceção do fato dele permitir a escrita com duas ou mais expressões angular: ng-bind-template="{{expressão1}} - {{expressão2}} {{expressão3}}"</p>
+			<p>Então qualé a graça desse cara? Muitas, mas uma que eu acho muito legal é o fato de podermos cirar um "leia mais" com ele! Observe abaixo nosso conhecido "Lorem ipsum".</p>
+			<div ng-app="myApp">
+				<div ng-controller="myCtrl">
+					<p>
+						<span ng-hide="carregado==1" ng-bind-template="{{chars | limitTo: limit}}{{chars.length > limit ? '...' : ''}}"></span>
+						<span ng-show="carregado==1" ng-bind="chars"></span>
+						<button class="btn btn-primary" ng-class="{hidden: carregado==1}" ng-click="carregar()">Quero mais</button>
+						<h2 ng-show="carregado==1">Ele não merece! =)</h2>
+					</p>
+					<p>Podemos também exibir valores monetários com ele!</p>
+					<p>
+						<span ng-bind-template="{{valor | currency}}"></span><br />
+						<span ng-bind-template="{{valor | currency: ''}}"></span>
+					</p>
+					<p>Mas isso graças ao currency e ao angular-locale_pt-br! Mais sobre currency na <a href="https://docs.angularjs.org/api/ng/filter/currency" target="_blank">documentação</a> do AngularJs! Temos também a <a href="https://docs.angularjs.org/guide/i18n" target="_blank">documentação</a> para o locale!</p>
+				</div>
+			</div><br>
+			<h1>Conclusão</h1>
+			<p>Legal né? Tenho certeza que o ng-bind-template ainda vai te ajudar e muito! Mais sobre o ng-bind-template na <a href="https://docs.angularjs.org/api/ng/directive/ngBindTemplate" target="_blank">documentação</a> do AngularJs!</p>
+			<p>Mas iai Ibrahim é só isso? Do ng-bind-template é só e por aqui eu finalizo a série ng-bind do movimento "ajude o Lâmpada" =)</p>
+			<p>P.S.<br>Se você ficou curioso para ver o código desta implementação veja no <a href="http://plnkr.co/edit/y2B11svVvJpgs6wuTbTz?p=preview" target="_blank">plunker</a> =)</p>
+		</div>
+	</div>
+</body>
+</html>

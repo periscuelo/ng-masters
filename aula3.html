@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Turma 5 Curso AngularJS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script type="text/javascript" src="js/alertas.js"></script>
+	<script>
+		(function(){
+			angular.module('myApp',['alertas']);
+			
+			angular.module('myApp').config(function($compileProvider){
+				$compileProvider.debugInfoEnabled(false);
+			});
+
+			angular.module('myApp').controller('myCtrl', function($scope, Alerts){
+				$scope.showAlert = function(){
+                	Alerts.loadAlert({
+                		message: 'Aeee agora sim'
+                	});
+                };
+                $scope.showAlert2 = function(){
+                	Alerts.loadAlert({
+                		message: 'Esse também',
+                		seconds: 5
+                	});
+                };
+                $scope.showPopup = function(){
+                	Alerts.loadPopup({
+                		title: 'Meu Popup',
+                		description: 'Teste de Popup'
+                	});
+                };
+                $scope.showPopup2 = function(){
+                	Alerts.loadPopup({
+                		title: 'Meu Popup 2',
+                		description: 'Que Legal'
+                	});
+                };
+			});
+		})();
+	</script>
+</head>
+<body ng-app="myApp">
+	<div class="container" ng-controller="myCtrl">
+		<h3>Exercício 3</h3><br />
+		<form class="form-inline" role="form">
+			<fieldset>
+    			<legend>Clique nos botões para testar:</legend>
+				<button type="button" class="btn btn-warning" ng-click="showAlert()">
+					<span class="glyphicon glyphicon-warning-sign"></span> Mostra Alert
+				</button>
+				<button type="button" class="btn btn-danger" ng-click="showAlert2()">
+					<span class="glyphicon glyphicon-warning-sign"></span> Mostra Alert 2
+				</button>
+				<button type="button" class="btn btn-info" ng-click="showPopup()">
+					<span class="glyphicon glyphicon-new-window"></span> Mostra Popup
+				</button>
+				<button type="button" class="btn btn-primary" ng-click="showPopup2()">
+					<span class="glyphicon glyphicon-new-window"></span> Mostra Popup 2
+				</button>
+			</fieldset>
+		</form><br />
+		
+		<alerts></alerts>
+
+		<h3>Veja pelo <a href="http://plnkr.co/edit/RzxmoiS9KrINq7R2xIdk?p=preview" target="_blank">Plunker</a></h3>
+	</div>
+</body>
+</html>

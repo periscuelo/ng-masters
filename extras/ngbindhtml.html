@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Movimento ajude o Lâmpada!</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.min.js"></script>
+	<script type="text/javascript">
+		angular.module("myApp", ['ngSanitize']);
+		angular.module("myApp").controller("myCtrl", function($scope, $sce) {
+		    $scope.myHTML = '<p style="color:blue">an html <em onmouseover="this.textContent=\'PWN3D!\'">click here</em> snippet</p>';
+		    $scope.myHTML2 = $sce.trustAsHtml($scope.myHTML); // Aqui eu digo para o AngularJs que ele pode confiar no HTML e mandar ver!
+		    $scope.myHTML3 = '';
+		    $scope.f = function() {
+		    	$scope.myHTML4 = $sce.trustAsHtml($scope.myHTML3);
+		    }
+		});
+	</script>
+</head>
+<body ng-app="myApp">
+	<div class="jumbotron">
+		<div class="container" ng-controller="myCtrl">
+			<h1>NG-BIND-HTML</h1>
+			<p>Olá galera da turma 5 mg-masters. Continuando o movimento "ajude o Lâmpada!"</p>
+			<p>Não há como falar de ng-bind-html sem entrar no "Strict Contextual Escaping" o famoso $sce! A maioria de vocês deve ter percebido que não é possível interagir com o angular depois que o browser foi carregado. É quase como se fosse um "middle-end" que roda depois do back-end e antes do front-end. Existe uma razão para isso! Segurança! Imagine quantos injections poderiam ser feitos caso o AngularJs permitisse uma interação do browser em tempo real com o código compilado por ele... não daria certo!</p>
+			<p>Para resolver este problema o AngularJs usa o ngsanitize (Háááá pensou que eu ia falar $sce né? Só que não) que visa evitar injections em nosso código! Tá, mas o que isso tem haver com o $sce? Chegaremos lá. Vejamos um exemplo de ng-bind-html onde o ngsanitize garante que um código HTML complexo seja devidamente escapado!</p>
+			<div>
+				&lt;p style="color:blue"&gt;an html &lt;em onmouseover="this.textContent=\'PWN3D!\'"&gt;click here&lt;/em&gt; snippet&lt;/p&gt; veja o que vira abaixo! <span ng-bind-html="myHTML"></span>
+			</div>
+			<p>Fantástico não? O AngularJs escapou todo o código HTML! Mas porque precisa disso? Para evitar muitos problemas como <a href="https://pt.wikipedia.org/wiki/Cross-site_scripting" target="_blank">XSS Injection</a>, <a href="https://pt.wikipedia.org/wiki/Clickjacking" target="_blank">Clickjacking</a>, dentre outros! Isso ajuda a garantir que nenhum engraçadinho faça HTML Injection. Tá e o $sce???? Calma, vou falar dele agora =)</p>
+			<p>Suponhamos que você faça um CMS que utilize um editor de texto WYSIWYG como o ckeditor ou o summernote, e que você precisa mostrar o conteúdo HTML gravado nestes editores visto que a pessoa pode querer colocar algo em negrito e etc. Como fazer se o ngsanitize escapa tudo? Agora sim entra o nosso amigo $sce.</p>
+			<p>Com ele podemos dizer ao angular que determinado HTML, URL, CSS, Javascript e outros mais são seguros e podem ser executados! Para tal veremos o mesmo exemplo desta vez passando pelo $sce.trustAsHtml()</p>
+			<div>
+				&lt;p style="color:blue"&gt;an html &lt;em onmouseover="this.textContent=\'PWN3D!\'"&gt;click here&lt;/em&gt; snippet&lt;/p&gt; veja o que vira abaixo! <span ng-bind-html="myHTML2"></span>
+			</div>
+			<p>Opa, agora nosso HTML foi executado =) Maaaaaasssss tem um porém =(</p>
+			<p>De acordo a <a href="https://docs.angularjs.org/api/ngSanitize/service/$sanitize" target="_blank">documentação</a> do AngularJs esse procedimento é bem perigoso pois dependendo da forma que for implementado, abre uma brecha no sistema para injections! Vejamos um exemplo</p>
+			<div>
+				Copie esta tag e cole no input e escreva algo na frente da tag ex: &lt;style&gt;span{color:red;}&lt;/style&gt; aaaa <br>
+				<input type="text" ng-model="myHTML3" ng-change="f()">
+				<span ng-bind-html="myHTML4"></span>
+			</div><br>
+			<p>Note que modificamos o css do span através de um input. Isso poderia ocorrer também com a tag &lt;script&gt;. Viu o tamanho da encrenca? Acesso externo ao seu código rodando no AngularJs! Note que este foi apenas um exemplo, claro que deve existir milhares de outras formas de se fazer injections. Portanto, tome muito cuidado em como você usa o $sce para não deixar sua aplicação vulnerável.</p>
+			<p>O $sce não serve só pra isso. Ele também protege sua aplicação no caso do uso do ng-include! Pense só você se alguém conseguisse injetar uma página interna na sua aplicação usando um ng-include!? A casa ia cair. Mas o povo do Google pensou nisso também e fez o $sce.trustAsResourceUrl(). Assim você garante que a URL do seu ng-include também é segura para inclusão dinâmica de URL's. Para mais informações sobre como funciona o $sce dêem uma olhada na <a href="https://docs.angularjs.org/api/ng/service/$sce" target="_blank">documentação</a> do AngularJs =)</p>
+			<h1>Conclusão</h1>
+			<p>Vimos aqui ng-bind-html é show de bola para 'N' necessidades e que temos de saber usar o $sce para não correr riscos! Mais sobre o ng-bind-html na <a href="https://docs.angularjs.org/api/ng/directive/ngBindHtml" target="_blank">documentação</a> do AngularJs!</p>
+			<p>Mas iai Ibrahim é só isso? Do ng-bind-html é só mas, não existe só ng-bind e o ng-bind-html, existe o ng-bind-template! =)</p>
+			<p>Ficou curioso de saber pra que ele serve? Não se preocupe vou explicar para que serve este também!</p>
+			<p>Fazer isso leva algum tempo mas farei muito em breve e o link vai estar aqui pra vocês! Avisarei no e-mail do grupo! Vamo que vamo galera "Ajude o Lâmpada!!!!"</p>
+			<p>P.S.<br>Se você ficou curioso para ver o código desta implementação veja no <a href="http://plnkr.co/edit/oEjMqlzxi6VNi6KcrJYo?p=preview" target="_blank">plunker</a> =)</p>
+		</div>
+	</div>
+</body>
+</html>

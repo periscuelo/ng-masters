@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Movimento ajude o Lâmpada!</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>NG-BIND</h1>
+			<p>Olá galera da turma 5 mg-masters. Meu nome é Ibrahim Brumate e estou iniciando hoje o movimento "ajude o Lâmpada!"</p>
+			<p>O Tony ensinou para nós que podemos trazer do back-end dados para o template do front-end através da expressão angulariana {{angular.expression}} ou {[{angular.expression}]} (Através do module.config usando $interpolate).</p>
+			<p>Legal, mas se é assim então pra que existe o ng-bind???</p>
+			<p>Digamos que o servidor de hospedagem que você está usando não seja lá "aquela brastemp" ou que você tenha aquela internet de 10MBPS que a operadora garante 90% de uptime do link e só entregue 10% da velocidade contratada que vai dar 1MBPS no dia que não chove! Ai meu amigo, fatalmente as coisas serão mais lentas que um localhost =)</p>
+			<p>Mas como não posso garantir que a coisa seja exatamente assim, fiz uma gambiarra trazendo o angular de um script back-end que demora 5 segundos para rodar, apenas para que você possa ver o que acontece quando o angular não roda imediatamente quando sua página abre, e para que você possa entender o uso do ng-bind!</p>
+			<p>Chega de lero lero e vamos ao exemplo!</p>
+			<p>Caso não tenha observado, quando você entra ná pagina tem 2 tags h3 e uma delas mostra a expressão {{teste}} durante 5 segundos que seria o tempo (que pode ser menor ou maior que isso dependendo das condições já citadas) que ele demora para carregar o angular! Note que depois que o angular carrega a expressão some, mas até ela carregar o usuário vai enxergar uma ou mais expressões do angular que existirem no seu site e isso não é legal! Se não reparou nisto clique em "Reload" e preste atenção!</p>
+			<div ng-app="myApp">
+				<div ng-controller="myCtrl">
+					<button class="btn btn-warning" onclick="location.reload()">Reload</button>
+					<button class="btn btn-primary" ng-click="carregar()">Carregar Dados</button>
+					<div class="btn btn-default">
+						<h3>Sem bind = Olhá galera uma expressão do angular!!!! {{teste}}</h3>
+						<h3>Com bind = Ué cadê minha expressão??? <span ng-bind="teste"></span></h3>
+					</div>
+				</div>
+			</div><br>
+			<p>Notou que no segundo h3 o problema não ocorre? Agora clique em Carregar Dados!</p>
+			<h1>Conclusão</h1>
+			<p>Vimos que ambas as opções carregam o $scope.teste mas que o ng-bind evita que mesmo por 1ms o usuário veja que existem expressões angularianas no seu template html! Legal né? Mais sobre o ng-bind na <a href="https://docs.angularjs.org/api/ng/directive/ngBind" target="_blank">documentação</a> do AngularJs!</p>
+			<p>Mas iai Ibrahim é só isso? Do ng-bind é só mas, não existe só ng-bind, existe o ng-bind-html e o ng-bind-template! =)</p>
+			<p>Ficou curioso de saber pra que eles servem? Não se preocupe vou explicar para que serve cada um deles e também um pouco sobre $sce!</p>
+			<p>Fazer isso leva algum tempo mas farei muito em breve! Avisarei no e-mail do grupo! Vamo que vamo galera "Ajude o Lâmpada!!!!"</p>
+			<p>P.S.<br>Se você ficou curioso para ver o código desta implementação veja no <a href="http://plnkr.co/edit/z3g7Yc3k8DjWTODOukZS?p=preview" target="_blank">plunker</a> =)</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="http://www.coolingservices.com.br/angular.php"></script>
+	<script type="text/javascript">
+		angular.module("myApp", []);
+		angular.module("myApp").controller("myCtrl", function($scope) {
+		    $scope.carregar = function() {
+		    	$scope.teste = "Ahh agora eu entendi!";
+		    };
+		});
+	</script>
+</body>
+</html>

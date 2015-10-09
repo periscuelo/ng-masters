@@ -1,0 +1,19 @@
+<div>
+	<div class="alert alert-warning" ng-show="model.avisible">{{model.message}}</div>
+	<div class="modal fade in center-block" id="modal-id" ng-show="model.visible">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" aria-hidden="true" ng-click="model.closePopup()">&times;</button>
+					<h4 class="modal-title" ng-bind="model.title"></h4>
+				</div>
+				<div class="modal-body">
+					<span ng-bind="model.description"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="model.closePopup()">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
