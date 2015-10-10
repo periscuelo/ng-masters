@@ -7,78 +7,6 @@
 	<title>Turma 5 Curso AngularJS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		function vaibuscarasissues() {
-			var username = jQuery('#user').val();
-			var reponame = jQuery('#reponame').val();
-			var lines = '';
-			
-			if (username=='' || reponame=='') {
-				alert('Os campos Usuário e Repositório tem de estar preenchidos para prosseguir!');
-				if (username=='') { 
-					jQuery('#user').focus();
-				} else {
-					jQuery('#reponame').focus();
-				}
-			} else {
-				if (confirm('Quer ver o resultado via closure?')) {
-
-					function GithubRepo(username, reponame) { //closure
-						var url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
-						var issuesC = {};
-				        return {
-				        	busca_issues: function() {
-				        		return jQuery.getJSON(url, function(data) {
-									issuesC = data;
-								});
-				        	},
-				        	popula_tabela: function(id) {
-				        		jQuery.each(issuesC, function(index, val) {
-									lines += '<tr class="appended"><td>'+val.number+'</td><td>'+val.title+'</td></tr>';
-								});
-								jQuery('.appended').remove();
-								jQuery(id).append(lines);
-				        	}
-				        };
-				    };
-
-				    var le_repo = GithubRepo(username, reponame);
-
-				} else {
-
-					function GithubRepo(username, reponame) { //prototype
-						this.url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
-				    };
-
-				    GithubRepo.prototype.busca_issues = function() {
-				    	return jQuery.getJSON(this.url, function(data) {
-							GithubRepo.prototype.issues = JSON.stringify(data);
-						});
-					};
-
-					GithubRepo.prototype.popula_tabela = function(id) {
-						jQuery.each(JSON.parse(this.issues), function(index, val) {
-							lines += '<tr class="appended"><td>'+val.number+'</td><td>'+val.title+'</td></tr>';
-						});
-						jQuery('.appended').remove();
-						jQuery(id).append(lines);
-					};
-
-					var le_repo = new GithubRepo(username, reponame);
-				}
-
-				le_repo.busca_issues().then(function() {
-			    	le_repo.popula_tabela('#issuestable');
-			    });
-			}
-		}
-		jQuery(document).ready(function() {
-			jQuery('#examples').change(function() {
-				jQuery('#user').val(jQuery('#examples').val());
-				jQuery('#reponame').val(jQuery('#examples option:selected').text());
-			});
-		});
-	</script>
 </head>
 <body>
 	<div class="container">
@@ -104,5 +32,73 @@
 			<tr><th>Numero</th><th>Titulo</th></tr>
 		</table>
 	</div>
+	<script type="text/javascript">
+		jQuery('#examples').change(function() {
+			jQuery('#user').val(jQuery('#examples').val());
+			jQuery('#reponame').val(jQuery('#examples option:selected').text());
+		});
+		
+		function vaibuscarasissues() {
+			var username = jQuery('#user').val();
+			var reponame = jQuery('#reponame').val();
+			var lines = '';
+
+			function GithubRepoC(username, reponame) { //closure
+				var url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
+				var issues = {};
+		        return {
+		        	busca_issues: function() {
+		        		return jQuery.getJSON(url, function(data) {
+							issues = data;
+						});
+		        	},
+		        	popula_tabela: function(id) {
+		        		jQuery.each(issues, function(index, val) {
+							lines += '<tr class="appended"><td>'+val.number+'</td><td>'+val.title+'</td></tr>';
+						});
+						jQuery('.appended').remove();
+						jQuery(id).append(lines);
+		        	}
+		        };
+		    };
+
+		    function GithubRepoP(username, reponame) { //prototype
+				this.url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
+		    };
+
+		    GithubRepoP.prototype.busca_issues = function() {
+		    	return jQuery.getJSON(this.url, function(data) {
+					GithubRepoP.prototype.issues = JSON.stringify(data);
+				});
+			};
+
+			GithubRepoP.prototype.popula_tabela = function(id) {
+				jQuery.each(JSON.parse(this.issues), function(index, val) {
+					lines += '<tr class="appended"><td>'+val.number+'</td><td>'+val.title+'</td></tr>';
+				});
+				jQuery('.appended').remove();
+				jQuery(id).append(lines);
+			};
+			
+			if (username=='' || reponame=='') {
+				alert('Os campos Usuário e Repositório tem de estar preenchidos para prosseguir!');
+				if (username=='') { 
+					jQuery('#user').focus();
+				} else {
+					jQuery('#reponame').focus();
+				}
+			} else {
+				if (confirm('Quer ver o resultado via closure?')) {
+				    var le_repo = GithubRepoC(username, reponame);
+				} else {				
+					var le_repo = new GithubRepoP(username, reponame);
+				}
+
+				le_repo.busca_issues().then(function() {
+			    	le_repo.popula_tabela('#issuestable');
+			    });
+			}
+		}
+	</script>
 </body>
 </html>
