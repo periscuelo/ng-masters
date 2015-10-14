@@ -38,13 +38,32 @@
 			jQuery('#reponame').val(jQuery('#examples option:selected').text());
 		});
 		
+		function GithubRepoP(username, reponame) { //prototype
+			this.url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
+		};
+
+		GithubRepoP.prototype.busca_issues = function() {
+			return jQuery.getJSON(this.url, function(data) {
+				GithubRepoP.prototype.issues = JSON.stringify(data);
+			});
+		};
+
+		GithubRepoP.prototype.popula_tabela = function(id) {
+			var lines = '';
+			jQuery.each(JSON.parse(this.issues), function(index, val) {
+				lines += '<tr class="appended"><td>'+val.number+'</td><td>'+val.title+'</td></tr>';
+			});
+			jQuery('.appended').remove();
+			jQuery(id).append(lines);
+		};
+		
 		function vaibuscarasissues() {
 			var username = jQuery('#user').val();
 			var reponame = jQuery('#reponame').val();
-			var lines = '';
 
 			function GithubRepoC(username, reponame) { //closure
 				var url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
+				var lines = '';
 				var issues = {};
 		        return {
 		        	busca_issues: function() {
@@ -62,25 +81,7 @@
 		        };
 		    };
 
-		    function GithubRepoP(username, reponame) { //prototype
-				this.url = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
-		    };
-
-		    GithubRepoP.prototype.busca_issues = function() {
-		    	return jQuery.getJSON(this.url, function(data) {
-					GithubRepoP.prototype.issues = JSON.stringify(data);
-				});
-			};
-
-			GithubRepoP.prototype.popula_tabela = function(id) {
-				jQuery.each(JSON.parse(this.issues), function(index, val) {
-					lines += '<tr class="appended"><td>'+val.number+'</td><td>'+val.title+'</td></tr>';
-				});
-				jQuery('.appended').remove();
-				jQuery(id).append(lines);
-			};
-			
-			if (username=='' || reponame=='') {
+		    if (username=='' || reponame=='') {
 				alert('Os campos Usuário e Repositório tem de estar preenchidos para prosseguir!');
 				if (username=='') { 
 					jQuery('#user').focus();
