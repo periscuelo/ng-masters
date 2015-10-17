@@ -1,0 +1,12 @@
+{
+	"name": "myapp",
+	"version": "0.0.1",
+	"devDependencies": {
+		"gulp": "~3.9.0",
+		"gulp-concat": "~2.5.2",
+		"gulp-debug": "~2.1.0",
+		"gulp-ngmin": "~0.3.0",
+		"gulp-uglifyjs": "~0.6.2",
+		"gulp-sourcemaps": "~1.6.0"
+	}
+}

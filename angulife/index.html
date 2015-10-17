@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AnguLife Automato Responsive Game</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="js/angular/angular.min.js"></script>
+	<script type="text/javascript" src="js/angulife.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div>
+			<h3>Regras</h3>
+			A cada dia que passa:
+			<ul>
+				<li>Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.</li>
+				<li>Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.</li>
+				<li>Qualquer célula morta com exatamente três vizinhos vivos se torna uma célula viva.</li>
+				<li>Qualquer célula viva com dois ou três vizinhos vivos continua no mesmo estado para a próxima geração.</li>
+			</ul>
+			Este jogo é feito com Angular e é baseado no jogo Life. Para saber mais veja o <a href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life" target="_blank">Wikipedia</a>.
+		</div><br>
+		<div class="panel panel-default" ng-app="anguLife">
+			  <div class="panel-heading">
+					<h3 class="panel-title">Responsive AnguLife</h3>
+			  </div>
+			  <div class="panel-body" ng-controller="grid">
+			  		<div class="row">
+						<div class="col-xs-12 col-sm-2 col-lg-2">
+							<label>Grid de</label>
+							<input type="number" ng-change="model.updateGrid()" ng-model="model.height" ng-disabled="model.auto" min="20" step="5" class="form-control input-sm">
+						</div>
+						<div class="col-xs-12 col-sm-2 col-lg-2">
+							<label>por</label>
+							<input type="number" ng-change="model.updateGrid()" ng-model="model.width" ng-disabled="model.auto" min="20" step="5" class="form-control input-sm">
+						</div>
+						<div class="col-xs-12 col-sm-1 col-lg-1">
+							<label>Dia</label>
+							<input type="text" ng-model="model.day" ng-disabled="true" class="form-control input-sm">
+						</div>
+						<div class="col-xs-12 col-sm-5 col-lg-4">
+							<label>Ação</label><br>
+							<button type="button" ng-click="model.reset()" ng-disabled="model.auto" class="btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-refresh"></span> Reiniciar
+							</button>
+							<button type="button" ng-click="model.step()" ng-disabled="model.auto" class="btn btn-success btn-sm">
+								<span class="glyphicon glyphicon-plus-sign"></span> 1 Dia
+							</button>
+							<button type="button" ng-click="model.automatic()" ng-if="!model.auto" class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-play"></span> Automático
+							</button>
+							<button type="button" ng-click="model.automatic()" ng-if="model.auto" class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-stop"></span> Parar
+							</button>
+						</div>
+						<div class="col-xs-12 col-sm-2 col-lg-3">
+							<label>Veloc. Seg.</label>
+							<input type="number" ng-model="model.seconds" ng-disabled="model.auto" min="0.1" max="5" class="form-control input-sm"> 
+						</div>
+					</div><br>
+				    <div class="table-responsive">
+						<table class="table table-bordered table-condensed">
+							<tbody >
+								<tr ng-repeat="(line, columns) in model.arrs track by $index">
+									<td ng-repeat="(column, value) in columns track by $index" ng-class="{success: value, active: !value}" ng-click="model.life(line,column)">
+										<h3></h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+			  </div>
+			  <div class="panel-footer">
+			  		Desenvolvido por <a href="mailto:periscuelo@gmail.com">Ibrahim Brumate</a>
+			  </div>
+		</div>
+	</div>
+</body>
+</html>
