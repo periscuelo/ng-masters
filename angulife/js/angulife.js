@@ -12,8 +12,8 @@
 
 	angular.module('anguLife').factory('cells', function($interval){
 		var model = {
-			height: 20,
-			width: 20,
+			height: 10,
+			width: 10,
 			seconds: 0.1,
 			day: 0,
 			arrs: [],
