@@ -6,8 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>AnguLife Automato Responsive Game</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script type="text/javascript" src="js/angular/angular.min.js"></script>
-	<script type="text/javascript" src="js/angulife.min.js"></script>
+	<link rel="stylesheet" href="css/angulife.css">
 </head>
 <body>
 	<div class="container">
@@ -22,9 +21,9 @@
 			</ul>
 			Este jogo é feito com Angular e é baseado no jogo Life. Para saber mais veja o <a href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life" target="_blank">Wikipedia</a>.
 		</div><br>
-		<div class="panel panel-default" ng-app="anguLife">
+		<div class="panel panel-default mtable" ng-app="anguLife">
 			  <div class="panel-heading">
-					<h3 class="panel-title">Responsive AnguLife</h3>
+					<h3 class="panel-title">Responsive AnguLife Min. Width 624 (Landscape Mode Recommended)</h3>
 			  </div>
 			  <div class="panel-body" ng-controller="grid">
 			  		<div class="row">
@@ -65,7 +64,7 @@
 							<tbody >
 								<tr ng-repeat="(line, columns) in model.arrs track by $index">
 									<td ng-repeat="(column, value) in columns track by $index" ng-class="{success: value, active: !value}" ng-click="model.life(line,column)">
-										<h3></h3>
+										<div class="square"></div>
 									</td>
 								</tr>
 							</tbody>
@@ -77,5 +76,7 @@
 			  </div>
 		</div>
 	</div>
+	<script type="text/javascript" src="js/angular/angular.min.js"></script>
+	<script type="text/javascript" src="js/angulife.min.js"></script>
 </body>
 </html>
