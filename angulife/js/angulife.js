@@ -16,7 +16,6 @@
 			width: 10,
 			seconds: 0.1,
 			day: 0,
-			arrs: [],
 			promise: {},
 			auto: false
 		};
@@ -73,6 +72,7 @@
 				model.arrs = newArr;
 	        },
 	        updateGrid: function(){ 
+	        	model.arrs = [];
 	        	for (i=0; i<model.height; i++){
 	            	model.arrs[i] = [];
 	            	for (j=0; j<model.width; j++){
