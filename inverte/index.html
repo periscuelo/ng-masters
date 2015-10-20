@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Turma 5 Curso AngularJS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script type="text/javascript">
+    	(function(){
+	    	angular.module("myapp", []);
+
+	    	angular.module('myapp').config(function($compileProvider){
+				$compileProvider.debugInfoEnabled(false);
+			});
+
+			angular.module('myapp').controller('MyCtrl', function($scope){
+				$scope.mtr = function(){
+			    	return $scope.texto.split("").reverse().join("")
+			    };
+			});
+		})();
+    </script>
+</head>
+<body ng-app="myapp">
+	<div class="container" ng-controller="MyCtrl">
+		<h3>Inverter Link de Sites</h3><br />
+		<form class="form-inline">
+			<div class="form-group">Link Inverso <input type="text" ng-model="texto" class="form-control"></div>
+		</form>
+		<br />
+		<a href="{{mtr()}}">{{mtr()}}</a>
+		<br /><br />
+	</div>
+</body>
+</html>
