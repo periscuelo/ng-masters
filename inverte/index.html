@@ -30,7 +30,7 @@
 			<div class="form-group">Link Inverso <input type="text" ng-model="texto" class="form-control"></div>
 		</form>
 		<br />
-		<a href="{{mtr()}}"><span ng-cloak>{{mtr()}}</span></a>
+		<a ng-if="mtr()" href="{{mtr()}}">{{mtr()}}</a>
 		<br /><br />
 	</div>
 </body>
